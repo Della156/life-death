@@ -1,98 +1,141 @@
 <template>
   <el-menu
-    default-active="2"
+    ref="slider_menu"
     class="el-menu-vertical-demo"
-    @open="handleOpen"
-    @close="handleClose"
+    @select="handleSelect"
     :collapse="isCollapse"
     background-color="#041527"
     text-color="#fff"
-    active-text-color="#ffd04b">
-    <el-menu-item index="1">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#iconshouye"></use>
-      </svg>
-      <span slot="title">首页</span>
-    </el-menu-item>
-    <el-submenu index="2">
-      <template slot="title">
+    active-text-color="#ffd04b"
+  >
+    <div v-for="sliderItem in slider" :key="sliderItem.url">
+      <el-submenu v-if="sliderItem.key" :index="sliderItem.url">
+        <template slot="title">
+          <svg class="icon">
+            <use :xlink:href="sliderItem.icon"></use>
+          </svg>
+          <span>{{ sliderItem.title }}</span>
+        </template>
+        <el-menu-item
+          v-for="child in sliderItem.children"
+          :key="child.url"
+          :index="child.url"
+        >
+          <template slot="title">
+            <span>{{ child.title }}</span>
+          </template>
+        </el-menu-item>
+      </el-submenu>
+      <el-menu-item v-else :index="sliderItem.url">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconxitong1"></use>
+          <use :xlink:href="sliderItem.icon"></use>
         </svg>
-        <span>生死簿</span>
-      </template>
-      <el-menu-item index="2-1">用户管理</el-menu-item>
-      <el-menu-item index="2-2">数据同步</el-menu-item>
-    </el-submenu>
-    <el-menu-item index="3">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icondagou"></use>
-      </svg>
-      <span slot="title">勾魂管理</span>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#iconshenpanzhihang"></use>
-      </svg>
-      <span slot="title">阎王殿审批记录</span>
-    </el-menu-item>
-    <el-menu-item index="5">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icondao1"></use>
-      </svg>
-      <span slot="title">十八层地狱</span>
-    </el-menu-item>
-    <el-menu-item index="6">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#iconlunhui-zhihang"></use>
-      </svg>
-      <span slot="title">六道轮回</span>
-    </el-menu-item>
-    <el-menu-item index="7">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#iconqianbi"></use>
-      </svg>
-      <span slot="title">冥币管理</span>
-    </el-menu-item>
-    <el-menu-item index="8" disabled>
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#iconrizhi"></use>
-      </svg>
-      <span slot="title">日志管理</span>
-    </el-menu-item>
-    <el-menu-item index="9">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#iconsystem"></use>
-      </svg>
-      <span slot="title">角色权限</span>
-    </el-menu-item>
-    <el-menu-item index="10">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#iconxitong1"></use>
-      </svg>
-      <span slot="title">系统管理</span>
-    </el-menu-item>
+        <span slot="title">{{ sliderItem.title }}</span>
+      </el-menu-item>
+    </div>
   </el-menu>
 </template>
 
 <script>
-  export default {
-    name: "Slider",
-    data() {
-      return {
-        isCollapse: false,
-      }
-    },
+export default {
+  name: "Slider",
+  data() {
+    return {
+      isCollapse: false,
+      slider: [
+        {
+          url: "firstPage",
+          title: "首页",
+          icon: "#iconshouye",
+          key: false
+        },
+        {
+          url: "lifeDeath",
+          title: "生死簿",
+          icon: "#iconbenzi",
+          key: true,
+          children: [
+            {
+              url: "userManger",
+              title: "用户管理"
+            },
+            {
+              url: "dataSynchronize",
+              title: "数据同步"
+            }
+          ]
+        },
+        {
+          url: "hookManager",
+          title: "勾魂管理",
+          icon: "#icondagou",
+          key: false
+        },
+        {
+          url: "approvalRecord",
+          title: "阎王殿审批记录",
+          icon: "#iconshenpanzhihang",
+          key: false
+        },
+        {
+          url: "eighthFool",
+          title: "十八层地狱",
+          icon: "#icondao1",
+          key: false
+        },
+        {
+          url: "reincarnation",
+          title: "六道轮回",
+          icon: "#iconlunhui-zhihang",
+          key: false
+        },
+        {
+          url: "moneyManager",
+          title: "冥币管理",
+          icon: "#iconqianbi",
+          key: false
+        },
+        {
+          url: "dailyManager",
+          title: "日志管理",
+          icon: "#iconrizhi",
+          key: false
+        },
+        {
+          url: "roleLimit",
+          title: "角色权限",
+          icon: "#iconsystem",
+          key: false
+        },
+        {
+          url: "systemManger",
+          title: "系统管理",
+          icon: "#iconxitong1",
+          key: false
+        }
+      ]
+    };
+  },
 
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
+  watch: {
+    $route(val, old) {
+      let routerPath = val.path;
+      let page = "";
+      if (routerPath.startsWith("/")) {
+        page = routerPath.substr(1, routerPath.length);
+      } else {
+        page = routerPath;
       }
+      this.$refs.slider_menu.activedIndex = page;
+    }
+  },
+
+  methods: {
+    handleSelect(key) {
+      this.$router.push(key);
     }
   }
+};
 </script>
 
 <style scoped>

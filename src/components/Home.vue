@@ -9,7 +9,9 @@
       </el-aside>
       <el-container>
         <el-main style="background-color: #F7F9FC;">
-          <div class="life-warp"></div>
+          <div class="life-warp">
+            <router-view></router-view>
+          </div>
         </el-main>
       </el-container>
     </el-container>
