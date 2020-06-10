@@ -8,7 +8,7 @@
     text-color="#fff"
     active-text-color="#ffd04b"
   >
-    <div v-for="sliderItem in slider" :key="sliderItem.url">
+    <template v-for="sliderItem in slider">
       <el-submenu v-if="sliderItem.key" :index="sliderItem.url">
         <template slot="title">
           <svg class="icon">
@@ -32,16 +32,16 @@
         </svg>
         <span slot="title">{{ sliderItem.title }}</span>
       </el-menu-item>
-    </div>
+    </template>
   </el-menu>
 </template>
 
 <script>
 export default {
   name: "Slider",
+  props: ["isCollapse"],
   data() {
     return {
-      isCollapse: false,
       slider: [
         {
           url: "firstPage",

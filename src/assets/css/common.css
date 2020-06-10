@@ -1,0 +1,68 @@
+/*
+    项目里自定义的公共样式
+    create by dyt
+*/
+
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  font-size: 16px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.icon-font {
+  font-size: 30px;
+}
+
+header {
+  height: 30px;
+  padding: 16px;
+}
+main {
+  flex: 1;
+  padding: 10px;
+}
+
+footer {
+  height: 64px;
+}
+
+/*滚动条*/
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+  border-radius: 5px;
+  background-color: #f6f8fa;
+}
+
+/*自定义下拉框图标*/
+.el-select__caret:before {
+  content: "\e6e6";
+  font-size: 18px;
+}
+
+/*tooltip__popper设置最大宽度*/
+.el-tooltip__popper {
+  max-width: 20%;
+}
+
+/*表格*/
+.el-table th.gutter {
+  background-color: #f8f9fb;
+}
+.el-table th.is-leaf {
+  background: #f8f9fb;
+  padding: 8px 0;
+  border-bottom: 0;
+}
+.cell {
+  color: #394d5f;
+}
+thead {
+  color: #f8f9fb;
+  font-family: Microsoft YaHei;
+  padding: 8px 0;
+}

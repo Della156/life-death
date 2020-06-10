@@ -1,27 +1,37 @@
 <template>
   <div class="life-header">
-    <div class="title"><span>地府管理系统</span></div>
+    <div class="title" @click="changeMenu">
+      <svg class="icon icon-font">
+        <use :xlink:href="isCollapse ? '#icondakai' : '#iconzhedie'"></use>
+      </svg>
+    </div>
     <div class="badge">
       <el-dropdown trigger="click">
-      <span>
-        <el-avatar icon="el-icon-user-solid"></el-avatar>
-      </span>
+        <span>
+          <el-avatar icon="el-icon-user-solid"></el-avatar>
+        </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item icon="el-icon-plus">个鬼信息</el-dropdown-item>
           <el-dropdown-item icon="el-icon-circle-plus">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-badge :value="3" class="item">
-        <i class="el-icon-message-solid" style="font-size: 30px"></i>
+        <i class="el-icon-message-solid icon-font"></i>
       </el-badge>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: "Head"
+export default {
+  name: "Head",
+  props: ["isCollapse"],
+  methods: {
+    changeMenu() {
+      this.$emit("changeMenu");
+    }
   }
+};
 </script>
 
 <style lang="less" scoped>
@@ -29,18 +39,10 @@
   height: 100%;
   .title {
     float: left;
-    width: 229px;
     height: 100%;
-    background-color: #041527;
-    span {
-      color: #fff;
-      font-weight: bold;
-      font-size: 20px;
-      position: absolute;
-      margin-left: 2%;
-      margin-top: 2%;
-
-    }
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
   }
   .badge {
     float: right;

@@ -4,5 +4,8 @@
   </div>
 </template>
 
-<style>
+<style lang="less">
+  @import './assets/css/normalize.css';
+  @import './assets/css/common.css';
+
 </style>

@@ -1,13 +1,13 @@
 <template>
   <div class="life-container">
-    <el-header style="padding: 0">
-      <Head />
-    </el-header>
-    <el-container style="height: calc(100% - 60px)">
-      <el-aside width="230px">
-        <Slider />
+    <el-container style="height: 100%">
+      <el-aside :width="isCollapse ? '55px' : '230px'">
+        <Slider :isCollapse="isCollapse" />
       </el-aside>
-      <el-container>
+      <el-container style="calc(100% - 60px)">
+        <el-header style="padding: 0">
+          <Head :isCollapse="isCollapse" @changeMenu="toggleChange" />
+        </el-header>
         <el-main style="background-color: #F7F9FC;">
           <div class="life-warp">
             <router-view></router-view>
@@ -26,22 +26,30 @@ export default {
   components: {
     Slider,
     Head
+  },
+  data() {
+    return {
+      isCollapse: true
+    };
+  },
+  methods: {
+    toggleChange() {
+      this.isCollapse = !this.isCollapse;
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
-  .life-container {
+.life-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow-y: hidden;
+  .life-warp {
     height: 100%;
-    width: 100%;
-    position: relative;
-    overflow-y: hidden;
-    .life-warp {
-      height: 100%;
-      background-color: #fff;
-
-    }
+    background-color: #fff;
   }
-
+}
 </style>
