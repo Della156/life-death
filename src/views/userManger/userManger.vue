@@ -1,24 +1,12 @@
 <template>
   <div class="user-manger">
     <header>
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="审批人">
-          <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-        </el-form-item>
-        <el-form-item label="活动区域">
-          <el-select v-model="formInline.region" placeholder="活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">查询</el-button>
-        </el-form-item>
-      </el-form>
-      <div style="width: 50%; display: flex;justify-content: space-around; align-items: center">
+      <div
+        style="width: 50%; display: flex;justify-content: space-around; align-items: center"
+      >
         <div>
-          {{percentage < 100 ? '批阅进度' : '今日工作已完成' }}
-          </div>
+          {{ percentage < 100 ? "批阅进度" : "今日工作已完成" }}
+        </div>
         <div style="width: 80%">
           <el-progress
             :percentage="percentage"
@@ -45,6 +33,9 @@
               <el-form-item label="死者编号">
                 <span>{{ scope.row.id }}</span>
               </el-form-item>
+              <el-form-item label="性别">
+                <span>{{ scope.row.sex ? "男" : "女" }}</span>
+              </el-form-item>
               <el-form-item label="死亡时间">
                 <span>{{ scope.row.deadTime }}</span>
               </el-form-item>
@@ -54,7 +45,11 @@
             </el-form>
           </template>
         </el-table-column>
-        <el-table-column label="编号" prop="id" min-width="150">
+        <el-table-column label="编号" prop="id" min-width="150"></el-table-column>
+        <el-table-column label="性别" prop="sex" min-width="80">
+          <template slot-scope="scope">
+            {{ scope.row.sex ? "女" : "男" }}
+          </template>
         </el-table-column>
         <el-table-column
           label="生平大事记"
@@ -95,14 +90,10 @@ export default {
   name: "userManger",
   data() {
     return {
-      formInline: {
-        user: "",
-        region: ""
-      },
       tableData: [],
       count: 0,
       search: "",
-      loading: false
+      loading: false,
     };
   },
 
@@ -112,8 +103,11 @@ export default {
 
   computed: {
     percentage: function() {
-      const percent = (1 - this.tableData.length / this.count).toFixed(2) * 100;
-      return percent;
+      if (this.count) {
+        const percent = (1 - this.tableData.length / this.count).toFixed(2) * 100;
+        return percent;
+      }
+      return 0
     }
   },
 
@@ -129,13 +123,6 @@ export default {
         .catch(() => {
           this.loading = false;
         });
-    },
-
-    onSubmit() {
-      this.loading = true;
-      setTimeout(() => {
-        this.fetchApproveInfo();
-      }, 300);
     },
 
     againApprove(index, row) {
@@ -205,11 +192,11 @@ export default {
     background: #fa5555;
   }
 
-  .el-table__body tr.hover-row > td {
+  /*  .el-table__body tr.hover-row > td {
     background-color: transparent !important;
   }
   .el-table__body tr:hover > td {
     background-color: transparent !important;
-  }
+  }*/
 }
 </style>

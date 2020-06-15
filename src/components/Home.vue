@@ -6,7 +6,7 @@
       </el-aside>
       <el-container style="calc(100% - 60px)">
         <el-header style="padding: 0">
-          <Head :isCollapse="isCollapse" @changeMenu="toggleChange" />
+          <Head :isCollapse="isCollapse" :messageCount="messageCount" @changeMenu="toggleChange" />
         </el-header>
         <el-main style="background-color: #F7F9FC;">
           <div class="life-warp">
@@ -29,12 +29,23 @@ export default {
   },
   data() {
     return {
-      isCollapse: true
+      isCollapse: true,
+      messageCount: 0,
     };
   },
+
+  mounted() {
+    this.fetchMessage()
+  },
+
   methods: {
     toggleChange() {
       this.isCollapse = !this.isCollapse;
+    },
+    fetchMessage() {
+      this.axios.get("/mock/message").then(({ data }) => {
+        this.messageCount = data.number
+      });
     }
   }
 };

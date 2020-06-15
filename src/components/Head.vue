@@ -15,8 +15,10 @@
           <el-dropdown-item icon="el-icon-circle-plus">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-badge :value="3" class="item">
-        <i class="el-icon-message-solid icon-font"></i>
+      <el-badge :value="messageCount" :hidden="!messageCount" type="primary">
+        <svg class="icon icon-font" aria-hidden="true">
+          <use xlink:href="#icontongzhi"></use>
+        </svg>
       </el-badge>
     </div>
   </div>
@@ -25,7 +27,8 @@
 <script>
 export default {
   name: "Head",
-  props: ["isCollapse"],
+  props: ["isCollapse", "messageCount"],
+
   methods: {
     changeMenu() {
       this.$emit("changeMenu");

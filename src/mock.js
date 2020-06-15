@@ -40,19 +40,24 @@ const Random = Mock.Random
 Random.id()
 Random.csentence()
 Random.datetime()
-Random.integer(60, 100)
+Random.integer(0, 120)
 Random.cname()
 Mock.mock('/mock/users',{
   'userData|4-20': [
     {
       id: '@id',
+      sex: '@boolean(3, 7, true)',
       main: '@csentence',
       deadTime: '@datetime',
-      age: '@integer(10,120)',
+      age: '@integer(0,120)',
       approve: '@cname',
     },
   ],
   count() {
     return this.userData.length
   },
+})
+
+Mock.mock('/mock/message', {
+  "number|1-50": 50
 })
