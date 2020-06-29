@@ -3,7 +3,6 @@
     ref="slider_menu"
     class="el-menu-vertical-demo"
     @select="handleSelect"
-    :collapse="isCollapse"
     background-color="#041527"
     text-color="#fff"
     active-text-color="#ffd04b"
@@ -39,7 +38,6 @@
 <script>
 export default {
   name: "Slider",
-  props: ["isCollapse"],
   data() {
     return {
       slider: [

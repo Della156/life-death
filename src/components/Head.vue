@@ -1,10 +1,5 @@
 <template>
   <div class="life-header">
-    <div class="title" @click="changeMenu">
-      <svg class="icon icon-font">
-        <use :xlink:href="isCollapse ? '#icondakai' : '#iconzhedie'"></use>
-      </svg>
-    </div>
     <div class="badge">
       <el-dropdown trigger="click">
         <span>
@@ -27,12 +22,9 @@
 <script>
 export default {
   name: "Head",
-  props: ["isCollapse", "messageCount"],
+  props: ["messageCount"],
 
   methods: {
-    changeMenu() {
-      this.$emit("changeMenu");
-    }
   }
 };
 </script>

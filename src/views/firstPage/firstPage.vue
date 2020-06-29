@@ -3828,7 +3828,7 @@ export default {
           // left: 20,
           // top: 20,
           // bottom: 20,
-          roam: true,
+          roam: false, // 是否可伸缩
           itemStyle: {
             normal: {
               areaColor: "#323c48",

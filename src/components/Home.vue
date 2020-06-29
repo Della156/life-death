@@ -1,12 +1,12 @@
 <template>
   <div class="life-container">
     <el-container style="height: 100%">
-      <el-aside :width="isCollapse ? '55px' : '230px'">
-        <Slider :isCollapse="isCollapse" />
+      <el-aside width="230px">
+        <Slider/>
       </el-aside>
       <el-container style="calc(100% - 60px)">
         <el-header style="padding: 0">
-          <Head :isCollapse="isCollapse" :messageCount="messageCount" @changeMenu="toggleChange" />
+          <Head :messageCount="messageCount" />
         </el-header>
         <el-main style="background-color: #F7F9FC;">
           <div class="life-warp">
@@ -39,9 +39,6 @@ export default {
   },
 
   methods: {
-    toggleChange() {
-      this.isCollapse = !this.isCollapse;
-    },
     fetchMessage() {
       this.axios.get("/mock/message").then(({ data }) => {
         this.messageCount = data.number
